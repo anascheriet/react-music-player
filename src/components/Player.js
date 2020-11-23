@@ -1,9 +1,8 @@
 import React, { useRef, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlay, faAngleLeft, faAngleRight, faPause } from '@fortawesome/free-solid-svg-icons'
-export const Player = ({ currentSong, setIsPlaying, isPlaying }) => {
-    //Ref
-    const audioRef = useRef(null);
+export const Player = ({ currentSong, setIsPlaying, isPlaying, audioRef }) => {
+    
     //event handlers
     const playSongHandler = () => {
         if (isPlaying) {
