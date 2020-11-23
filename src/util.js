@@ -53,16 +53,6 @@ const chillhop = () => {
             active: false,
         },
         {
-            name: "Under the City Stars",
-            cover:
-                "https://chillhop.com/wp-content/uploads/2020/09/0255e8b8c74c90d4a27c594b3452b2daafae608d-1024x1024.jpg",
-            artist: "Aso, Middle School, Aviino",
-            audio: "  ",
-            color: ["#205950", "#2ab3bf"],
-            id: uuidv4(),
-            active: false,
-        },
-        {
             name: "Going Back",
             artist: "Swørn‚",
             cover: "https://chillhop.com/wp-content/uploads/2020/10/737bb830d34592344eb4a2a1d2c006cdbfc811d9-1024x1024.jpg",
