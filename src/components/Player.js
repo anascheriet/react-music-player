@@ -42,15 +42,20 @@ export const Player = ({ currentSong, setIsPlaying, isPlaying, audioRef, songs, 
 
     const skipSongHandle = (direction) => {
         let currentSongIndex = songs.findIndex(x => x.id === currentSong.id);
+        let lastSongIndex = songs.length - 1;
         if (direction === 'previous') {
-           /*  setCurrentSong(songs[(currentSongIndex - 1) % songs.length]) */
+            if (currentSongIndex === 0) {
+                setCurrentSong(songs[lastSongIndex]);
+            }
+            else {
+                setCurrentSong(songs[(currentSongIndex - 1) % songs.length]);
+            }
+            console.log(songs.length - 1);
         }
         else if (direction === 'next') {
             setCurrentSong(songs[(currentSongIndex + 1) % songs.length]);
         }
     }
-
-
 
     return (
         <div className="player">
