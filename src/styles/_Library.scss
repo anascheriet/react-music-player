@@ -42,5 +42,14 @@
 
 .active-library {
   transform: translateX(0%);
-  opacity: 1;
+  opacity: 100%;
+  h1 {
+    opacity: 0;
+  }
+}
+
+@media screen and (max-width: 786px) {
+  .library{
+    width: 100%;
+  }
 }

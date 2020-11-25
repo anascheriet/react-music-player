@@ -1,7 +1,27 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlay, faAngleLeft, faAngleRight, faPause } from '@fortawesome/free-solid-svg-icons'
+import { playAudio } from './util'
 export const Player = ({ currentSong, setIsPlaying, isPlaying, audioRef, songs, setCurrentSong, setSongs }) => {
+
+    //useEffect
+    useEffect(() => {
+        const newSongs = songs.map((song) => {
+            if (song.id === currentSong.id) {
+                return {
+                    ...song,
+                    active: true
+                }
+            }
+            else {
+                return {
+                    ...song,
+                    active: false,
+                }
+            }
+        });
+        setSongs(newSongs);
+    }, [currentSong])
 
     //event handlers
     const playSongHandler = () => {
@@ -46,15 +66,24 @@ export const Player = ({ currentSong, setIsPlaying, isPlaying, audioRef, songs, 
         if (direction === 'previous') {
             if (currentSongIndex === 0) {
                 setCurrentSong(songs[lastSongIndex]);
+                playAudio(isPlaying, audioRef);
             }
             else {
                 setCurrentSong(songs[(currentSongIndex - 1) % songs.length]);
+                playAudio(isPlaying, audioRef);
             }
             console.log(songs.length - 1);
         }
         else if (direction === 'next') {
             setCurrentSong(songs[(currentSongIndex + 1) % songs.length]);
+            playAudio(isPlaying, audioRef);
         }
+    }
+
+    const songEndHandler = async () => {
+        let currentSongIndex = songs.findIndex(x => x.id === currentSong.id);
+        await setCurrentSong(songs[(currentSongIndex + 1) % songs.length]);
+        if (isPlaying) audioRef.current.play();
     }
 
     return (
@@ -69,7 +98,7 @@ export const Player = ({ currentSong, setIsPlaying, isPlaying, audioRef, songs, 
                     value={songInfo.currentTime}
                     onChange={dragHandler} />
 
-                <p>{getTime(songInfo.duration)}</p>
+                <p>{songInfo.duration ? getTime(songInfo.duration) : "0:00"}</p>
             </div>
 
             <div className="play-control">
@@ -80,7 +109,8 @@ export const Player = ({ currentSong, setIsPlaying, isPlaying, audioRef, songs, 
             </div>
 
             <audio onTimeUpdate={timeUpdateHandler} ref={audioRef}
-                onLoadedMetadata={timeUpdateHandler} src={currentSong.audio}></audio>
+                onLoadedMetadata={timeUpdateHandler} src={currentSong.audio}
+                onEnded={songEndHandler}></audio>
         </div>
     )
 }
