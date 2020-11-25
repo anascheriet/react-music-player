@@ -7,6 +7,7 @@
   box-shadow: 2px 2px 50px rgb(99, 138, 138);
   overflow: scroll;
   transform: translateX(-100%);
+  background: white;
   transition: all 0.5s ease;
   opacity: 0;
   h2 {
@@ -19,6 +20,7 @@
   align-items: center;
   padding: 1rem 2rem 1rem 2rem;
   cursor: pointer;
+  transition: all 0.75s ease-out;
   img {
     width: 5rem;
   }
@@ -42,10 +44,7 @@
 
 .active-library {
   transform: translateX(0%);
-  opacity: 100%;
-  h1 {
-    opacity: 0;
-  }
+  opacity: 1;
 }
 
 @media screen and (max-width: 786px) {

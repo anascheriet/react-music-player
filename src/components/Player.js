@@ -21,7 +21,7 @@ export const Player = ({ currentSong, setIsPlaying, isPlaying, audioRef, songs, 
             }
         });
         setSongs(newSongs);
-    }, [currentSong, songs,setSongs])
+    }, [currentSong])
 
     //event handlers
     const playSongHandler = () => {
@@ -72,7 +72,6 @@ export const Player = ({ currentSong, setIsPlaying, isPlaying, audioRef, songs, 
                 setCurrentSong(songs[(currentSongIndex - 1) % songs.length]);
                 playAudio(isPlaying, audioRef);
             }
-            console.log(songs.length - 1);
         }
         else if (direction === 'next') {
             setCurrentSong(songs[(currentSongIndex + 1) % songs.length]);
@@ -94,7 +93,7 @@ export const Player = ({ currentSong, setIsPlaying, isPlaying, audioRef, songs, 
                 <input
                     type="range"
                     min={0}
-                    max={songInfo.duration}
+                    max={songInfo.duration || 0}
                     value={songInfo.currentTime}
                     onChange={dragHandler} />
 
