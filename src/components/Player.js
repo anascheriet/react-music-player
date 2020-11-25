@@ -21,7 +21,7 @@ export const Player = ({ currentSong, setIsPlaying, isPlaying, audioRef, songs, 
             }
         });
         setSongs(newSongs);
-    }, [currentSong])
+    }, [currentSong, songs,setSongs])
 
     //event handlers
     const playSongHandler = () => {

@@ -1,4 +1,3 @@
-import React from 'react'
 
 export const playAudio = (isPlaying, audioRef) => {
     if (isPlaying) {
