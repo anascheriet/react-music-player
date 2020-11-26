@@ -68,19 +68,27 @@ export const Player = ({ currentSong, setIsPlaying, isPlaying, audioRef, songs, 
     const skipSongHandle = (direction) => {
         let currentSongIndex = songs.findIndex(x => x.id === currentSong.id);
         let lastSongIndex = songs.length - 1;
-        if (direction === 'previous') {
-            if (currentSongIndex === 0) {
-                setCurrentSong(songs[lastSongIndex]);
-                playAudio(isPlaying, audioRef);
-            }
-            else {
-                setCurrentSong(songs[(currentSongIndex - 1) % songs.length]);
-                playAudio(isPlaying, audioRef);
-            }
-        }
-        else if (direction === 'next') {
-            setCurrentSong(songs[(currentSongIndex + 1) % songs.length]);
+
+        if (isRepeating) {
+            let currentSongIndex = songs.findIndex(x => x.id === currentSong.id);
+            setCurrentSong(songs[currentSongIndex]);
             playAudio(isPlaying, audioRef);
+        }
+        else {
+            if (direction === 'previous') {
+                if (currentSongIndex === 0) {
+                    setCurrentSong(songs[lastSongIndex]);
+                    playAudio(isPlaying, audioRef);
+                }
+                else {
+                    setCurrentSong(songs[(currentSongIndex - 1) % songs.length]);
+                    playAudio(isPlaying, audioRef);
+                }
+            }
+            else if (direction === 'next') {
+                setCurrentSong(songs[(currentSongIndex + 1) % songs.length]);
+                playAudio(isPlaying, audioRef);
+            }
         }
     }
 
