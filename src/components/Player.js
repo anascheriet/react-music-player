@@ -1,8 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlay, faAngleLeft, faAngleRight, faPause } from '@fortawesome/free-solid-svg-icons'
-import { playAudio } from './util'
+import { faPlay, faAngleLeft, faAngleRight, faPause, faRedo } from '@fortawesome/free-solid-svg-icons'
+import { playAudio } from './util';
+import data from "../data";
 export const Player = ({ currentSong, setIsPlaying, isPlaying, audioRef, songs, setCurrentSong, setSongs }) => {
+
+    //State
+    const [songInfo, setSongInfo] = useState({
+        currentTime: 0,
+        duration: 0
+    })
+
+    const [isRepeating, setisRepeating] = useState(false);
 
     //useEffect
     useEffect(() => {
@@ -39,11 +48,7 @@ export const Player = ({ currentSong, setIsPlaying, isPlaying, audioRef, songs, 
         setSongInfo({ ...songInfo, currentTime: e.target.value });
     }
 
-    //State
-    const [songInfo, setSongInfo] = useState({
-        currentTime: 0,
-        duration: 0
-    })
+
 
 
     const timeUpdateHandler = (e) => {
@@ -80,9 +85,24 @@ export const Player = ({ currentSong, setIsPlaying, isPlaying, audioRef, songs, 
     }
 
     const songEndHandler = async () => {
-        let currentSongIndex = songs.findIndex(x => x.id === currentSong.id);
-        await setCurrentSong(songs[(currentSongIndex + 1) % songs.length]);
-        if (isPlaying) audioRef.current.play();
+        if (isRepeating === false) {
+            let currentSongIndex = songs.findIndex(x => x.id === currentSong.id);
+            await setCurrentSong(songs[(currentSongIndex + 1) % songs.length]);
+            if (isPlaying) audioRef.current.play();
+        }
+        else if (isRepeating === true) {
+            let currentSongIndex = songs.findIndex(x => x.id === currentSong.id);
+            await setCurrentSong(songs[(currentSongIndex)]);
+            if (isPlaying) audioRef.current.play();
+        }
+
+    }
+
+    const repeatSongHandler = () => {
+        setisRepeating(!isRepeating);
+        if (isRepeating === true) {
+            setSongs(data());
+        }
     }
 
     return (
@@ -102,8 +122,11 @@ export const Player = ({ currentSong, setIsPlaying, isPlaying, audioRef, songs, 
 
             <div className="play-control">
                 <FontAwesomeIcon className="skip-back" size="2x" icon={faAngleLeft} onClick={() => skipSongHandle('previous')} />
-                <FontAwesomeIcon className="play" size="2x" icon={isPlaying ? faPause : faPlay} onClick={playSongHandler} />
-                <FontAwesomeIcon className="skip-forward" size="2x" icon={faAngleRight} onClick={() => skipSongHandle('next')} />
+                <div>
+                    <FontAwesomeIcon className="play" size="2x" icon={isPlaying ? faPause : faPlay} onClick={playSongHandler} /> &nbsp;&nbsp;
+                <FontAwesomeIcon className="play" size="2x" icon={faRedo} color={isRepeating ? "green" : "black"} onClick={repeatSongHandler} />
+                </div>
+                <FontAwesomeIcon className="skip-forward" size="2x" display={false} icon={faAngleRight} onClick={() => skipSongHandle('next')} />
 
             </div>
 

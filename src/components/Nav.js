@@ -11,6 +11,7 @@ export const Nav = ({ libraryStatus, setLibraryStatus }) => {
                 Library
                 <FontAwesomeIcon icon={faMusic} />
             </button>
+            <button >Github</button>
         </nav>
     )
 }
