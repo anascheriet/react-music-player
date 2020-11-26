@@ -8,7 +8,7 @@ export const Nav = ({ libraryStatus, setLibraryStatus }) => {
         <nav className="nav">
             <h1>Waves <p style={{ fontSize: '0.5rem' }}>by anasCH</p></h1>
             
-            <button ><a style={{ textDecoration: "none", color: "black" }} href="http://github.com/anascheriet" target="blank">Github</a>
+            <button ><a style={{ textDecoration: "none", color: "black" }} href="https://github.com/anascheriet/react-music-player" target="blank">Github</a>
                 <i class="fab fa-github"></i>
             </button>
             <button className={libraryStatus ? "library-active" : ""}
