@@ -129,12 +129,12 @@ export const Player = ({ currentSong, setIsPlaying, isPlaying, audioRef, songs, 
             </div>
 
             <div className="play-control">
-                <FontAwesomeIcon className="skip-back" size="2x" icon={faAngleLeft} onClick={() => skipSongHandle('previous')} />
+                <FontAwesomeIcon title="Previous" className="skip-back" size="2x" icon={faAngleLeft} onClick={() => skipSongHandle('previous')} />
                 <div>
-                    <FontAwesomeIcon className="play" size="2x" icon={isPlaying ? faPause : faPlay} onClick={playSongHandler} /> &nbsp;&nbsp;
-                <FontAwesomeIcon className="play" size="2x" icon={faRedo} color={isRepeating ? "green" : "black"} onClick={repeatSongHandler} />
+                    <FontAwesomeIcon  className="play" size="2x" title={isPlaying ? "Pause" : "Play"} icon={isPlaying ? faPause : faPlay} onClick={playSongHandler} /> &nbsp;&nbsp;
+                <FontAwesomeIcon title="Repeat track" className="play" size="2x" icon={faRedo} color={isRepeating ? "green" : "black"} onClick={repeatSongHandler} />
                 </div>
-                <FontAwesomeIcon className="skip-forward" size="2x" display={false} icon={faAngleRight} onClick={() => skipSongHandle('next')} />
+                <FontAwesomeIcon title="Next" className="skip-forward" size="2x" display={false} icon={faAngleRight} onClick={() => skipSongHandle('next')} />
 
             </div>
 
