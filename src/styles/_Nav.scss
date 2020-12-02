@@ -22,11 +22,17 @@ nav {
   }
 }
 
+.githublogo {
+  width: 3rem;
+  position: relative;
+  left: 2px;
+  top: 4px;
+}
+
 @media screen and (max-width: 768px) {
   nav {
     button {
       z-index: 10;
     }
-    
   }
 }
