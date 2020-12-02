@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlay, faAngleLeft, faAngleRight, faPause, faRedo } from '@fortawesome/free-solid-svg-icons'
+import { faPlay, faAngleLeft, faAngleRight, faPause, faRedo, faRandom } from '@fortawesome/free-solid-svg-icons'
 import { playAudio } from './util';
 import data from "../data";
-export const Player = ({ currentSong, setIsPlaying, isPlaying, audioRef, songs, setCurrentSong, setSongs }) => {
+import playlist from "../img/queueblack.svg";
+export const Player = ({ currentSong, setIsPlaying, isPlaying, audioRef, songs, setCurrentSong, setSongs, queueStatus, setQueueStatus, isRandom, setIsRandom, queuedSongs, setQueuedSongs }) => {
 
     //State
     const [songInfo, setSongInfo] = useState({
@@ -15,22 +16,43 @@ export const Player = ({ currentSong, setIsPlaying, isPlaying, audioRef, songs, 
 
     //useEffect
     useEffect(() => {
-        const newSongs = songs.map((song) => {
-            if (song.id === currentSong.id) {
-                return {
-                    ...song,
-                    active: true
+        if (!isRandom) {
+            const newSongs = songs.map((song) => {
+                if (song.id === currentSong.id) {
+                    return {
+                        ...song,
+                        active: true
+                    }
                 }
-            }
-            else {
-                return {
-                    ...song,
-                    active: false,
+                else {
+                    return {
+                        ...song,
+                        active: false,
+                    }
                 }
-            }
-        });
-        setSongs(newSongs);
-    }, [currentSong])
+            });
+            setSongs(newSongs);
+            setQueuedSongs(newSongs);
+        } else if (isRandom) {
+
+            const newSongs = queuedSongs.map((song) => {
+                if (song.id === currentSong.id) {
+                    return {
+                        ...song,
+                        active: true
+                    }
+                }
+                else {
+                    return {
+                        ...song,
+                        active: false,
+                    }
+                }
+            });
+            setQueuedSongs(shuffle(newSongs));
+        }
+
+    }, [currentSong, isRandom])
 
     //event handlers
     const playSongHandler = () => {
@@ -48,9 +70,6 @@ export const Player = ({ currentSong, setIsPlaying, isPlaying, audioRef, songs, 
         setSongInfo({ ...songInfo, currentTime: e.target.value });
     }
 
-
-
-
     const timeUpdateHandler = (e) => {
         const current = e.target.currentTime;
         const duration = e.target.duration;
@@ -66,41 +85,44 @@ export const Player = ({ currentSong, setIsPlaying, isPlaying, audioRef, songs, 
     }
 
     const skipSongHandle = (direction) => {
-        let currentSongIndex = songs.findIndex(x => x.id === currentSong.id);
-        let lastSongIndex = songs.length - 1;
+        let currentSongIndex = queuedSongs.findIndex(x => x.id === currentSong.id);
+        let lastSongIndex = queuedSongs.length - 1;
 
         if (isRepeating) {
-            let currentSongIndex = songs.findIndex(x => x.id === currentSong.id);
-            setCurrentSong(songs[currentSongIndex]);
+            let currentSongIndex = queuedSongs.findIndex(x => x.id === currentSong.id);
+            setCurrentSong(queuedSongs[currentSongIndex]);
             playAudio(isPlaying, audioRef);
         }
         else {
             if (direction === 'previous') {
                 if (currentSongIndex === 0) {
-                    setCurrentSong(songs[lastSongIndex]);
+                    setCurrentSong(queuedSongs[lastSongIndex]);
                     playAudio(isPlaying, audioRef);
                 }
                 else {
-                    setCurrentSong(songs[(currentSongIndex - 1) % songs.length]);
+                    setCurrentSong(queuedSongs[(currentSongIndex - 1) % queuedSongs.length]);
                     playAudio(isPlaying, audioRef);
                 }
             }
             else if (direction === 'next') {
-                setCurrentSong(songs[(currentSongIndex + 1) % songs.length]);
+                setCurrentSong(queuedSongs[(currentSongIndex + 1) % queuedSongs.length]);
                 playAudio(isPlaying, audioRef);
             }
         }
     }
 
     const songEndHandler = async () => {
+        console.log(queuedSongs);
+        console.log(currentSong);
+
         if (isRepeating === false) {
-            let currentSongIndex = songs.findIndex(x => x.id === currentSong.id);
-            await setCurrentSong(songs[(currentSongIndex + 1) % songs.length]);
+            let currentSongIndex = queuedSongs.findIndex(x => x.id === currentSong.id);
+            await setCurrentSong(queuedSongs[(currentSongIndex + 1) % queuedSongs.length]);
             if (isPlaying) audioRef.current.play();
         }
         else if (isRepeating === true) {
-            let currentSongIndex = songs.findIndex(x => x.id === currentSong.id);
-            await setCurrentSong(songs[(currentSongIndex)]);
+            let currentSongIndex = queuedSongs.findIndex(x => x.id === currentSong.id);
+            await setCurrentSong(queuedSongs[(currentSongIndex)]);
             if (isPlaying) audioRef.current.play();
         }
 
@@ -111,6 +133,24 @@ export const Player = ({ currentSong, setIsPlaying, isPlaying, audioRef, songs, 
         if (isRepeating === true) {
             setSongs(data());
         }
+    }
+
+    const shuffle = (array) => {
+        array.sort(() => Math.random() - 0.5);
+        return array;
+    }
+
+    const shuffleHandler = async () => {
+        setIsRandom(!isRandom);
+        await setCurrentSong(queuedSongs[0]);
+        if (isPlaying) {
+            audioRef.current.play();
+        }
+        //setSongs(shuffle(songs));
+    }
+
+    const queueHandler = () => {
+        setQueueStatus(!queueStatus);
     }
 
     return (
@@ -131,10 +171,12 @@ export const Player = ({ currentSong, setIsPlaying, isPlaying, audioRef, songs, 
             <div className="play-control">
                 <FontAwesomeIcon title="Previous" className="skip-back" size="2x" icon={faAngleLeft} onClick={() => skipSongHandle('previous')} />
                 <div>
-                    <FontAwesomeIcon  className="play" size="2x" title={isPlaying ? "Pause" : "Play"} icon={isPlaying ? faPause : faPlay} onClick={playSongHandler} /> &nbsp;&nbsp;
-                <FontAwesomeIcon title="Repeat track" className="play" size="2x" icon={faRedo} color={isRepeating ? "green" : "black"} onClick={repeatSongHandler} />
+                    <FontAwesomeIcon size="2x" icon={faRandom} color={isRandom ? "green" : "black"} onClick={shuffleHandler} /> &nbsp;&nbsp;
+                    <FontAwesomeIcon className="play" size="2x" title={isPlaying ? "Pause" : "Play"} icon={isPlaying ? faPause : faPlay} onClick={playSongHandler} /> &nbsp;&nbsp;
+                <FontAwesomeIcon title="Repeat track" className="play" size="2x" icon={faRedo} color={isRepeating ? "green" : "black"} onClick={repeatSongHandler} />&nbsp;&nbsp;
+                    <img className="queueimage" title="Queue" src={playlist} onClick={queueHandler} />
                 </div>
-                <FontAwesomeIcon title="Next" className="skip-forward" size="2x" display={false} icon={faAngleRight} onClick={() => skipSongHandle('next')} />
+                <FontAwesomeIcon title="Next" className="skip-forward" size="2x"  icon={faAngleRight} onClick={() => skipSongHandle('next')} />
 
             </div>
 

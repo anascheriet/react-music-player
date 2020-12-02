@@ -16,11 +16,13 @@ body {
 .App {
   transition: all 0.5s ease;
 }
+
 .library-active {
-  margin-left: 30%;
+  margin-left: 20%;
 }
 
 @import "./player";
 @import "./song";
 @import "./Library";
-@import "./Nav"
+@import "./Nav";
+@import "./Queue.scss"

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { playAudio } from './util';
 
 export const LibrarySong = ({ song, setCurrentSong, audioRef, isPlaying, setSongs, songs, id }) => {
@@ -8,7 +8,7 @@ export const LibrarySong = ({ song, setCurrentSong, audioRef, isPlaying, setSong
         setCurrentSong(song);
         playAudio(isPlaying, audioRef);
 
-        const newSongs = songs.map((song) => {
+        /* const newSongs = songs.map((song) => {
             if (song.id === id) {
                 return {
                     ...song,
@@ -22,8 +22,7 @@ export const LibrarySong = ({ song, setCurrentSong, audioRef, isPlaying, setSong
                 }
             }
         })
-
-        setSongs(newSongs);
+        setSongs(newSongs); */
     };
 
     return (

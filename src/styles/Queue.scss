@@ -1,0 +1,63 @@
+.queue {
+  position: fixed;
+  opacity: 0;
+  top: 0;
+  right: 0;
+  height: 100%;
+  transition: all 0.5s ease;
+  width: 5rem;
+  background: white;
+  transition: all 0.5s ease;
+  box-shadow: 1px 1px 8px rgb(99, 138, 138);
+}
+
+.active {
+  transition: 1s;
+  opacity: 1;
+  right: 0;
+}
+
+.queueimage {
+  width: 2rem;
+}
+
+.imgholder {
+  margin-bottom: 1rem;
+  text-align: center;
+  background-color: #3c4252;
+  width: 100%;
+  padding: 1rem 0 0.5rem 0;
+  box-shadow: 1px 1px 8px rgb(99, 138, 138);
+}
+
+.queue-song {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  cursor: pointer;
+  flex-direction: column;
+  transition: all 0.75s ease-out;
+  img {
+    width: 3rem;
+    border-radius: 50%;
+  }
+  &:hover {
+    background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  }
+}
+
+.selected {
+  background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+
+
+@media screen and (max-width: 786px) {
+  .queue{
+    width: 15%;
+  }
+
+  .queue-song {
+    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+  }
+}
