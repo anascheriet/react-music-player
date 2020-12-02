@@ -52,7 +52,7 @@ export const Player = ({ currentSong, setIsPlaying, isPlaying, audioRef, songs, 
             setQueuedSongs(shuffle(newSongs));
         }
 
-    }, [currentSong, isRandom])
+    }, [isRandom])
 
     //event handlers
     const playSongHandler = () => {
@@ -146,7 +146,6 @@ export const Player = ({ currentSong, setIsPlaying, isPlaying, audioRef, songs, 
         if (isPlaying) {
             audioRef.current.play();
         }
-        //setSongs(shuffle(songs));
     }
 
     const queueHandler = () => {

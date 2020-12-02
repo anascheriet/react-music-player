@@ -22,10 +22,10 @@ function App() {
   return (
     <div className={`App ${libraryStatus ? "library-active" : ""}`}>
       <Nav libraryStatus={libraryStatus} setLibraryStatus={setLibraryStatus} />
-      <Queue songs={songs} queueStatus={queueStatus} setQueueStatus={setQueueStatus} setCurrentSong={setCurrentSong} setSongs={setSongs} audioRef={audioRef} isPlaying={isPlaying} queuedSongs={queuedSongs} setQueuedSongs={setQueuedSongs} isRandom={isRandom} setIsRandom={setIsRandom} />
+      <Queue songs={songs} queueStatus={queueStatus} setQueueStatus={setQueueStatus} setCurrentSong={setCurrentSong} setSongs={setSongs} audioRef={audioRef} isPlaying={isPlaying} queuedSongs={queuedSongs} setQueuedSongs={setQueuedSongs} isRandom={isRandom} setIsRandom={setIsRandom} currentSong={currentSong} />
       <Song currentSong={currentSong} />
       <Player audioRef={audioRef} isPlaying={isPlaying} setIsPlaying={setIsPlaying} currentSong={currentSong} songs={songs} setCurrentSong={setCurrentSong} setSongs={setSongs} queueStatus={queueStatus} setQueueStatus={setQueueStatus} isRandom={isRandom} setIsRandom={setIsRandom} queuedSongs={queuedSongs} setQueuedSongs={setQueuedSongs}/>
-      <Library songs={songs} setCurrentSong={setCurrentSong} audioRef={audioRef} isPlaying={isPlaying} setSongs={setSongs} libraryStatus={libraryStatus} />
+      <Library songs={songs} currentSong={currentSong} setCurrentSong={setCurrentSong} audioRef={audioRef} isPlaying={isPlaying} setSongs={setSongs} libraryStatus={libraryStatus} />
     </div>
   );
 }
