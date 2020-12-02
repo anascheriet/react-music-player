@@ -1,6 +1,6 @@
 # Link To The App
 
-http://wavesmusicplayer.herokuapp.com
+https://wavesmusicapp.herokuapp.com
 
 # Getting Started with Create React App
 
