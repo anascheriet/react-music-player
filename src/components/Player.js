@@ -130,9 +130,9 @@ export const Player = ({ currentSong, setIsPlaying, isPlaying, audioRef, songs, 
 
     const repeatSongHandler = () => {
         setisRepeating(!isRepeating);
-        if (isRepeating === true) {
+        /* if (isRepeating === true) {
             setSongs(data());
-        }
+        } */
     }
 
     const shuffle = (array) => {
