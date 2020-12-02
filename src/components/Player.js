@@ -142,7 +142,7 @@ export const Player = ({ currentSong, setIsPlaying, isPlaying, audioRef, songs, 
 
     const shuffleHandler = async () => {
         setIsRandom(!isRandom);
-        await setCurrentSong(queuedSongs[0]);
+        //await setCurrentSong(queuedSongs[0]);
         if (isPlaying) {
             audioRef.current.play();
         }
