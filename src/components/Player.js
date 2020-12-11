@@ -4,6 +4,7 @@ import { faPlay, faAngleLeft, faAngleRight, faPause, faRedo, faRandom } from '@f
 import { playAudio } from './util';
 import data from "../data";
 import playlist from "../img/queueblack.svg";
+import shuffle from 'lodash/shuffle';
 export const Player = ({ currentSong, setIsPlaying, isPlaying, audioRef, songs, setCurrentSong, setSongs, queueStatus, setQueueStatus, isRandom, setIsRandom, queuedSongs, setQueuedSongs }) => {
 
     //State
@@ -135,7 +136,7 @@ export const Player = ({ currentSong, setIsPlaying, isPlaying, audioRef, songs, 
         } */
     }
 
-    const shuffle = (array) => {
+    const shuffleArray = (array) => {
         array.sort(() => Math.random() - 0.5);
         return array;
     }

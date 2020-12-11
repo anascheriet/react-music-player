@@ -9,7 +9,7 @@ const chillhop = () => {
             artist: "Aso, Middle School, Aviino",
             audio: "https://mp3.chillhop.com/serve.php/?mp3=10075",
             color: ["#205950", "#2ab3bf"],
-            id: uuidv4(),
+            id: 1,
             active: true,
         },
         {
@@ -19,7 +19,7 @@ const chillhop = () => {
             artist: "Aiguille",
             audio: "https://mp3.chillhop.com/serve.php/?mp3=9272",
             color: ["#EF8EA9", "#ab417f"],
-            id: uuidv4(),
+            id: 2,
             active: false,
         },
         {
@@ -29,7 +29,7 @@ const chillhop = () => {
             artist: "Swørn",
             audio: "https://mp3.chillhop.com/serve.php/?mp3=9222",
             color: ["#CD607D", "#c94043"],
-            id: uuidv4(),
+            id: 3,
             active: false,
         },
         {
@@ -39,7 +39,7 @@ const chillhop = () => {
             artist: "Aiguille",
             audio: "https://mp3.chillhop.com/serve.php/?mp3=9148",
             color: ["#EF8EA9", "#ab417f"],
-            id: uuidv4(),
+            id: 4,
             active: false,
         },
         {
@@ -49,7 +49,7 @@ const chillhop = () => {
             artist: "Swørn",
             audio: "https://mp3.chillhop.com/serve.php/?mp3=9228",
             color: ["#CD607D", "#c94043"],
-            id: uuidv4(),
+            id: 5,
             active: false,
         },
         {
@@ -58,7 +58,7 @@ const chillhop = () => {
             cover: "https://chillhop.com/wp-content/uploads/2020/10/737bb830d34592344eb4a2a1d2c006cdbfc811d9-1024x1024.jpg",
             audio: "https://mp3.chillhop.com/serve.php/?mp3=10310",
             color: ['#335561', '#454966'],
-            id: uuidv4(),
+            id: /* uuidv4() */ 6,
             active: false
         }
         //ADD MORE HERE
