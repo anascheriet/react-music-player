@@ -1,6 +1,6 @@
 # Link To The App
 
-[https://anascheriet.github.io/react-music-player]
+https://anascheriet.github.io/react-music-player
 
 # Getting Started with Create React App
 
