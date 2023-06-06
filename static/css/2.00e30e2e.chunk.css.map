@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://node_modules/react-list-drag-and-drop/lib/RLDDFloatingItem.css"],"names":[],"mappings":"AAAA,oBACE,mBACF","file":"2.00e30e2e.chunk.css","sourcesContent":[".dl-item.activity > * {\n  pointer-events: none;\n}\n"]}
